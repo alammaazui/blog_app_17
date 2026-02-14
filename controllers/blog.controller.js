@@ -40,6 +40,10 @@ const postBlog = async (req, res) => {
 };
 const updateBlog = async (req, res) => {
   try {
+
+
+
+    res.status(200).json({msg:"blog updated successfully"})
   } catch (error) {
     res.status(500).json({ staus: "error", msg: error.message });
   }

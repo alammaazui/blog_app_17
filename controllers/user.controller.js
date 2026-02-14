@@ -2,9 +2,9 @@ const validator = require("validator");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const USER = require("../models/user.model");
-
+require('dotenv').config()
 const createToken = (email) => {
-  return jwt.sign({ email }, "dhfjkdshfjkdhfjksdhfjkdshfjksdfhjksdh", {
+  return jwt.sign({ email }, process.env.SECRET_KEY , {
     expiresIn: "30min",
   });
 };
