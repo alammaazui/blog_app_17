@@ -1,7 +1,9 @@
+const { where } = require("sequelize");
 const BLOG = require("../models/blog.model");
 
 const getBlogs = async (req, res) => {
   try {
+
     const blogs = await BLOG.findAll();
 
     res.status(200).json({ status: "success", data: blogs });
@@ -40,6 +42,12 @@ const postBlog = async (req, res) => {
 };
 const updateBlog = async (req, res) => {
   try {
+    const {id} = req.params
+    const {title ,description} = req.body
+
+    // 
+    const blog =  await BLOG.update({title,description},{where:{id}})
+    // 
 
 
 
@@ -50,6 +58,13 @@ const updateBlog = async (req, res) => {
 };
 const deleteBlog = async (req, res) => {
   try {
+
+    const {id} = req.params
+    // 
+    await BLOG.destroy({where:{id}})
+    // 
+
+    res.status(200).json({ staus: "success", msg: "blog has been deleted successfully ..." });
   } catch (error) {
     res.status(500).json({ staus: "error", msg: error.message });
   }

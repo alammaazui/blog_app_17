@@ -2,7 +2,20 @@ const validator = require("validator");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const USER = require("../models/user.model");
+const transporter = require("../config/mail.config");
 require('dotenv').config()
+const fs = require('fs');
+const path = require("path");
+const root_dir = require("../utils/path");
+
+
+
+let successPagePath = path.join(root_dir, 'pages', 'register.html')
+
+const successPage = fs.readFileSync(successPagePath,'utf-8')
+
+
+
 const createToken = (email) => {
   return jwt.sign({ email }, process.env.SECRET_KEY , {
     expiresIn: "30min",
@@ -75,6 +88,7 @@ const signUp = async (req, res) => {
         });
     }
 
+
     const is_user = await USER.findOne({ where: { email } });
     console.log("is_user : ", is_user);
     if (is_user) {
@@ -94,6 +108,19 @@ const signUp = async (req, res) => {
       username,
     });
     //
+
+    const info = await transporter.sendMail({
+         from: 'fwebdev2021@gmail.com',
+         to: user.email,
+         subject: "User Registration Notification",
+        //  text: "Registered Successfully", 
+        html: successPage
+      })
+
+      console.log("info ", info.messageId);
+
+    //
+
     res.status(200).json({ msg: "successfully registered" });
   } catch (error) {
     res.status(500).json({ status: "Error", msg: error.message });
