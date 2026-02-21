@@ -56,7 +56,7 @@ const signIn = async (req, res) => {
 
     res
       .status(200)
-      .json({ msg: "successfully loggedin", data: { email, token } });
+      .json({ msg: "successfully loggedin", data: { email, token ,profile_pic:is_user.profile_pic} });
   } catch (error) {
     res.status(500).json({ status: "Error", msg: error.message });
   }
@@ -65,7 +65,7 @@ const signIn = async (req, res) => {
 const signUp = async (req, res) => {
   try {
     const { email, password, username } = req.body;
-
+    const {filename} = req.file
     // validate
 
     if (!email || !password || !username) {
@@ -106,6 +106,7 @@ const signUp = async (req, res) => {
       email,
       password: encrypted_password,
       username,
+      profile_pic : filename
     });
     //
 
