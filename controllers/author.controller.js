@@ -1,9 +1,12 @@
 const AUTHOR = require("../models/author.model");
-
+const db = require('../models')
 const getAuthors = async (req, res) => {
   try {
     
-    const authorsData = await AUTHOR.findAll();
+    const authorsData = await AUTHOR.findAll({include:{
+      model:db.user,
+      attributes:['email','username']
+    }});
     res.status(200).json({ data: authorsData, status: "success" });
 
   } catch (error) {
@@ -15,8 +18,11 @@ const getAuthor = async (req, res) => {
   try {
     const { id } = req.params;
 
-    const authorData = await AUTHOR.findOne({ where: { id } });
 
+    const authorData = await AUTHOR.findOne({ where: { id } ,include:{
+      model: db.user,
+      attributes:['username','email']
+    }});
     res.status(200).json({ status: "success", data: authorData });
   } catch (error) {
     res.status(500).json({ status: "error", msg: error.message });
@@ -25,13 +31,13 @@ const getAuthor = async (req, res) => {
 
 const postAuthor = async (req, res) => {
   try {
-    const { experience, qualification } = req.body;
+    const { experience, qualification ,user_id} = req.body;
     
     if(!experience || !qualification){
         res.status(400).json({msg:"please provide author experience and qualification ..."})
     }
 
-    const data = await AUTHOR.create({experience,qualification})
+    const data = await AUTHOR.create({experience,qualification,user_id})
 
     res.status(200).json({msg:"author has been created successfully..."});
 } catch (error) {

@@ -5,9 +5,9 @@ const USER = sequelize.define("User", {
   id: {
     type: DataTypes.UUID,
     defaultValue: DataTypes.UUIDV4,
-    primaryKey:true,
-    allowNull:false,
-    unique:true
+    primaryKey: true,
+    allowNull: false,
+    unique: true,
   },
   username: {
     type: DataTypes.STRING,
@@ -21,22 +21,21 @@ const USER = sequelize.define("User", {
   password: {
     type: DataTypes.STRING,
     allowNull: false,
-},
-role: {
-    
+  },
+  role: {
     type: DataTypes.STRING,
     allowNull: false,
     defaultValue: "guest",
   },
   profile_pic: {
     type: DataTypes.STRING,
-    allowNull:true,
-},
-// mobile_number:{
-    
-//     type: DataTypes.STRING,
-//     allowNull:true,
-//   }
+    allowNull: true,
+  },
+  // mobile_number:{
+
+  //     type: DataTypes.STRING,
+  //     allowNull:true,
+  //   }
 });
 
-module.exports = USER
+module.exports = USER;

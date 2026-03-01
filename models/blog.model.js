@@ -20,6 +20,10 @@ const BLOG = sequelize.define("Blog", {
     type: DataTypes.STRING,
     allowNull: true,
   },
+  author_id:{
+        type: DataTypes.UUID,
+        allowNull:false
+  }
 });
 
 module.exports = BLOG;

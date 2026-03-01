@@ -17,6 +17,13 @@ const AUTHOR =sequelize.define("Author", {
     type: DataTypes.STRING,
     allowNull: false,
   },
+  user_id:{
+       type: DataTypes.UUID,
+       unique:true,
+       allowNull:false
+
+    
+  }
 });
 
 module.exports = AUTHOR

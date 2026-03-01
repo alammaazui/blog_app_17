@@ -13,7 +13,7 @@ const storage = multer.diskStorage({
   filename: function (req, file, cb) {
 
     console.log("file parameter : " , file);
-
+    // profile_pic-1771659495351-85697192.png
     const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9) + path.extname(file.originalname)
     cb(null, file.fieldname + '-' + uniqueSuffix)
   }

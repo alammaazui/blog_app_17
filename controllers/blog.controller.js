@@ -1,10 +1,14 @@
 const { where } = require("sequelize");
 const BLOG = require("../models/blog.model");
+const db = require("../models");
 
 const getBlogs = async (req, res) => {
   try {
 
-    const blogs = await BLOG.findAll();
+    const blogs = await BLOG.findAll({include:{
+      model:db.user,
+      attributes:['username']
+    }});
 
     res.status(200).json({ status: "success", data: blogs });
   } catch (error) {
@@ -24,14 +28,14 @@ const getBlog = async (req, res) => {
 };
 const postBlog = async (req, res) => {
   try {
-    const { title, description } = req.body;
+    const { title, description ,author_id} = req.body;
     if (!title || !description) {
       return res
         .status(400)
         .json({ status: "error", msg: "title and description is required" });
     }
 
-    const blog = await BLOG.create({ title, description });
+    const blog = await BLOG.create({ title, description ,author_id});
 
     return res
       .status(200)

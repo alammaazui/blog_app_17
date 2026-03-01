@@ -56,7 +56,7 @@ const signIn = async (req, res) => {
 
     res
       .status(200)
-      .json({ msg: "successfully loggedin", data: { email, token ,profile_pic:is_user.profile_pic} });
+      .json({ msg: "successfully loggedin", data: { email, token ,profile_pic:is_user.profile_pic,role:is_user.role} });
   } catch (error) {
     res.status(500).json({ status: "Error", msg: error.message });
   }

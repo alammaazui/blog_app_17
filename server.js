@@ -2,9 +2,11 @@ require("dotenv").config();
 const app = require("./app");
 const sequelize = require('./config/db.config');
 const { transporter } = require("./config/mail.config");
-const AUTHOR = require("./models/author.model");
-const BLOG = require("./models/blog.model");
-const USER = require("./models/user.model");
+const db = require("./models");
+// const AUTHOR = require("./models/author.model");
+// const BLOG = require("./models/blog.model");
+// const USER = require("./models/user.model");
+
 let port = process.env.PORT || 8000;
 
 /*
@@ -32,11 +34,11 @@ if (process.env.NODE_ENV == "development") {
   try {
     await sequelize.authenticate();
     console.log('Connection has been established successfully.');
-    await USER.sync()
+    await db.user.sync({force:false})
     console.log('user table created successfully');
-    await AUTHOR.sync()
+    await db.author.sync({force:false})
     console.log('author table created successfully');
-    await BLOG.sync({force:false})
+    await db.blog.sync({force:false})
     console.log("blog table created successfully");
   } catch (error) {
     console.error('Unable to connect to the database:', error);
