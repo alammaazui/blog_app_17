@@ -7,8 +7,13 @@ const authorRoute = require('./routes/author.route')
 const root_dir = require('./utils/path')
 const path = require('path')
 const authorization = require('./middlewares/authorization.mw')
+const upload = require('./config/multer.config')
+
 const app = express()
 // localhost:3000
+
+// app.post('/fileupload',upload.single('pic'))
+
 
 const staticfilespath = path.join(root_dir,'files') 
 // const staticfilespath1 = path.join(root_dir,'files') 
@@ -31,12 +36,12 @@ app.use('/api/v1/user',userRoute)
 // app.use('/userfiles',express.static(staticfilespath2))
 // app.use('/authorqualification',express.static(staticfilespath3))
 
-// app.use('/files',authenticationMW, express.static(staticfilespath))
-app.use('/files', express.static(staticfilespath))
+app.use('/files',authenticationMW, express.static(staticfilespath))
+// app.use('/files', express.static(staticfilespath))
 
 // creating blog API
 
-// app.use(authenticationMW)
+app.use(authenticationMW)
 
 app.use('/api/v1/blog',authenticationMW ,blogRoute)
 

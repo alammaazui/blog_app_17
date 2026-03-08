@@ -16,6 +16,10 @@ const App = () => {
     <hr />
     <Link to={'/register'}>Register</Link>
     <hr />
+    <Link to={'/admin'}>Admin Dashboard</Link>
+    <hr />
+    <Link to={'/author'}>Author Dashboard</Link>
+    <hr />
     <Routes> 
       <Route path='signin' element = {<Login/>}/>
       <Route path='register' element={<Register/>}/>

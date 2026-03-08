@@ -5,10 +5,11 @@ const db = require("../models");
 const getBlogs = async (req, res) => {
   try {
 
-    const blogs = await BLOG.findAll({include:{
-      model:db.user,
-      attributes:['username']
-    }});
+    // const blogs = await BLOG.findAll({include:{
+    //   model:db.user,
+    //   attributes:['username']
+    // }});
+    const blogs = await db.blog.findAll()
 
     res.status(200).json({ status: "success", data: blogs });
   } catch (error) {

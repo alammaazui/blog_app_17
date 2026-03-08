@@ -1,9 +1,12 @@
+
+
+
 import React from 'react';
 import { Navigate, Outlet } from 'react-router';
 
 const Authorization = ({allowedRole}) => {
 
-    const role = localStorage.getItem('role')
+    const role = localStorage.getItem('role') //author
 
     return (
         <>
